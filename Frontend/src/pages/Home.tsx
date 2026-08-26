@@ -398,7 +398,6 @@ const Home = () => {
                 <h3 className="text-2xl font-bold text-gray-900 group-hover:text-[#000080] transition-colors mb-1">BSNL Regional Telecom Training Centre (RTTC), Hyderabad</h3>
                 <p className="text-gray-500 text-sm">Practical training in AI, Cloud, Networking & Telecom technologies</p>
               </div>
-
               <div className="hidden sm:flex items-center gap-2 text-[#000080] font-bold shrink-0 bg-[#000080]/5 group-hover:bg-[#000080] group-hover:text-white px-5 py-3 rounded-xl transition-colors">
                 View Details <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </div>
