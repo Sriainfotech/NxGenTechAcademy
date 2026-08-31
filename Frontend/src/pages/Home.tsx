@@ -1,7 +1,6 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Smartphone, Clock, ChevronLeft, ChevronRight, Calendar, Database, Sparkles, Presentation } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 import { coursesData } from "@/data/categoryCourses";
@@ -42,24 +41,28 @@ const sapCourses = [
 }));
 
 const trendingCourses = [
+  /* Commented out per request - Data Analytics trending course
   {
     title: "Data Analytics",
     hours: "70 Hours",
     link: "/courses/data-analytics",
     image: "/data-analytics.jpg"
   },
+  */
   {
     title: "Python",
     hours: "45 Hours",
     link: "/courses/python",
     image: "/python.jpg"
   },
+  /* Commented out per request - Digital Marketing trending course
   {
     title: "Digital Marketing",
     hours: "Multiple Courses",
     link: "/courses/digital-marketing",
     image: "/digital-marketing.JPG"
   },
+  */
   {
     title: "AIML",
     hours: "80 Hours",
@@ -564,19 +567,7 @@ const Home = () => {
         </div>
       </section> */}
 
-      {/* WhatsApp quick chat button */}
-      <a
-        aria-label="Chat on WhatsApp"
-        href={`https://wa.me/919059585039?text=${encodeURIComponent("Hi, I'm interested in courses at NxGen Tech Academy")}`}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="fixed right-6 bottom-6 z-50 flex items-center justify-center w-14 h-14"
-      >
-        <span className="absolute inset-0 rounded-full bg-green-500 opacity-75 animate-ping"></span>
-        <span className="relative flex items-center justify-center w-14 h-14 rounded-full bg-green-600 text-white shadow-lg animate-bounce transition-transform hover:scale-110">
-          <FaWhatsapp className="w-8 h-8" />
-        </span>
-      </a>
+      {/* WhatsApp quick chat button now rendered globally in App.tsx */}
     </div>
   );
 };
