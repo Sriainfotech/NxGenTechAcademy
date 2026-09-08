@@ -70,6 +70,11 @@ export const CourseCarousel: React.FC<CarouselProps> = ({
         startAutoplay();
         emblaApi.on('select', startAutoplay); // Reset timer on interaction
         emblaApi.on('pointerDown', stopAutoplay);
+        // A touch that never becomes a drag (e.g. the page being scrolled
+        // vertically through the carousel on mobile) still fires
+        // pointerDown but never fires 'select' - without this, that alone
+        // would stop autoplay forever since nothing else restarts it.
+        emblaApi.on('pointerUp', startAutoplay);
 
         return () => stopAutoplay();
     }, [emblaApi, startAutoplay, stopAutoplay]);
