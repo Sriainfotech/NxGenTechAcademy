@@ -1,5 +1,47 @@
 from django.conf import settings
 from django.db import models
+from django.utils.text import slugify
+
+
+class DemoCourse(models.Model):
+    """Course catalog used by the public 'Book a Free Demo' form."""
+
+    name = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=220, unique=True, blank=True)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['order', 'name']
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+class DemoRequest(models.Model):
+    """A public submission of the 'Book a Free Demo' form."""
+
+    full_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    course = models.ForeignKey(
+        DemoCourse,
+        on_delete=models.PROTECT,
+        related_name='demo_requests',
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.full_name} - {self.course.name}"
 
 
 class DemoSchedule(models.Model):

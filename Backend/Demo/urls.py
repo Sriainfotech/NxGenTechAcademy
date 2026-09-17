@@ -2,6 +2,8 @@ from django.urls import path
 
 from .views import (
     BulkDemoScheduleView,
+    DemoCourseListView,
+    DemoRequestCreateView,
     DemoScheduleListView,
     DemoScheduleDetailView,
     DemoScheduleAttendanceView,
@@ -11,6 +13,8 @@ from .views import (
 )
 
 urlpatterns = [
+    path('courses/', DemoCourseListView.as_view(), name='demo_course_list'),
+    path('book/', DemoRequestCreateView.as_view(), name='demo_request_create'),
     path('schedule/', BulkDemoScheduleView.as_view(), name='demo_schedule'),
     path('', DemoScheduleListView.as_view(), name='demo_schedule_list'),
     path('<int:pk>/', DemoScheduleDetailView.as_view(), name='demo_schedule_detail'),

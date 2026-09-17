@@ -5,7 +5,25 @@ import pytz
 
 from campaign.models import Campaign
 from instructors.models import Instructor
-from .models import DemoSchedule
+from .models import DemoSchedule, DemoCourse, DemoRequest
+
+
+class DemoCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DemoCourse
+        fields = ['id', 'name', 'slug']
+
+
+class DemoRequestCreateSerializer(serializers.ModelSerializer):
+    course = serializers.SlugRelatedField(
+        slug_field='name',
+        queryset=DemoCourse.objects.filter(is_active=True),
+    )
+
+    class Meta:
+        model = DemoRequest
+        fields = ['id', 'full_name', 'email', 'phone', 'course', 'created_at']
+        read_only_fields = ['id', 'created_at']
 
 
 class DemoScheduleCreateSerializer(serializers.Serializer):

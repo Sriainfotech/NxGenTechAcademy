@@ -2,11 +2,13 @@ import logging
 from datetime import datetime, timezone as dt_timezone
 
 import pytz
+from django.conf import settings
+from django.core.mail import send_mail
 from django.db import transaction
 from django.urls import reverse
 from django.utils import timezone
-from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, status
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -14,8 +16,10 @@ from campaign.models import Campaign
 from instructors.models import Instructor
 from LeadManagement.models import Lead
 
-from .models import DemoSchedule, DemoAttendance
+from .models import DemoSchedule, DemoAttendance, DemoCourse, DemoRequest
 from .serializers import (
+    DemoCourseSerializer,
+    DemoRequestCreateSerializer,
     DemoScheduleCreateSerializer,
     DemoScheduleSerializer,
     DemoScheduleUpdateSerializer,
@@ -26,6 +30,69 @@ from .serializers import (
 from .tasks import send_demo_schedule_emails, send_demo_reschedule_emails
 
 logger = logging.getLogger(__name__)
+
+DEMO_REQUEST_NOTIFICATION_EMAIL = "nxgentechacademy@gmail.com"
+
+
+class DemoCourseListView(generics.ListAPIView):
+    """Public list of courses shown in the 'Book a Free Demo' dropdown."""
+
+    permission_classes = [AllowAny]
+    serializer_class = DemoCourseSerializer
+    queryset = DemoCourse.objects.filter(is_active=True)
+
+
+class DemoRequestCreateView(APIView):
+    """Public submission endpoint for the 'Book a Free Demo' form."""
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = DemoRequestCreateSerializer(data=request.data)
+        if not serializer.is_valid():
+            logger.warning("Demo request validation failed: %s", serializer.errors)
+            return Response(
+                {"error": "Invalid request data", "details": serializer.errors},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        demo_request = serializer.save()
+        logger.info(
+            "New public demo request: id=%s name=%s email=%s course=%s",
+            demo_request.id,
+            demo_request.full_name,
+            demo_request.email,
+            demo_request.course.name,
+        )
+
+        try:
+            send_mail(
+                "New Demo Request",
+                f"""New demo request received:
+
+Name: {demo_request.full_name}
+Email: {demo_request.email}
+Phone: {demo_request.phone}
+Course: {demo_request.course.name}
+""",
+                settings.DEFAULT_FROM_EMAIL,
+                [DEMO_REQUEST_NOTIFICATION_EMAIL],
+                fail_silently=False,
+            )
+        except Exception as exc:
+            logger.exception(
+                "Failed to send admin notification email for demo request %s: %s",
+                demo_request.id,
+                exc,
+            )
+
+        return Response(
+            {
+                "message": "Demo request submitted successfully",
+                "demo_request": DemoRequestCreateSerializer(demo_request).data,
+            },
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class BulkDemoScheduleView(APIView):
