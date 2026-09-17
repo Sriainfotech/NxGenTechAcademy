@@ -19,7 +19,44 @@ export interface Demo {
     participants?: Participant[];
 }
 
+export interface DemoFormCourse {
+    id: number;
+    name: string;
+    slug: string;
+}
+
+export interface DemoBookingPayload {
+    full_name: string;
+    email: string;
+    phone: string;
+    course: string;
+}
+
+export interface DemoBookingResponse {
+    message: string;
+    demo_request: {
+        id: number;
+        full_name: string;
+        email: string;
+        phone: string;
+        course: string;
+        created_at: string;
+    };
+}
+
 export const demoService = {
+    // Get the course list for the public "Book a Free Demo" sidebar form
+    getFormCourses: async (): Promise<DemoFormCourse[]> => {
+        const response = await axiosInstance.get('/api/demo/courses/');
+        return response.data;
+    },
+
+    // Submit the public "Book a Free Demo" sidebar form
+    bookDemo: async (data: DemoBookingPayload): Promise<DemoBookingResponse> => {
+        const response = await axiosInstance.post('/api/demo/book/', data);
+        return response.data;
+    },
+
     // Schedule a new demo
     scheduleDemo: async (data: any) => {
         const response = await axiosInstance.post('/api/demo/schedule/', data);

@@ -313,84 +313,84 @@ export const Navbar = () => {
               {/* Priority dropdown, shown on hover of group/menu. Only mounted
                   after the first hover - see hasHoveredCourseMenu above. */}
               {hasHoveredCourseMenu && (
-              <div className="absolute top-[calc(100%+0.5rem)] left-0 w-64 bg-white shadow-xl rounded-md opacity-0 invisible group-hover/menu:opacity-100 group-hover/menu:visible transition-opacity duration-300 z-[60] py-2 border border-gray-100">
-                <ul className="flex flex-col">
-                  {[
-                    {
-                      name: "SAP",
-                      link: "/courses/sap-courses",
-                      items: [
-                        { title: "SAP ABAP on HANA", link: "/courses/sap-abap-course-training" },
-                        { title: "SAP ABAP on HANA (CDS & OData)", link: "/courses/sap-abap-cds-course-training" },
-                        { title: "SAP Fiori & UI5", link: "/courses/sap-fiori-course-training" },
-                        { title: "SAP SD", link: "/courses/sap-sd-course-training" },
-                        { title: "SAP MM", link: "/courses/sap-mm-course-training" },
-                        { title: "SAP FICO", link: "/courses/sap-fico-course-training" },
-                        { title: "SAP PP", link: "/courses/sap-pp-course-training" },
-                        { title: "SAP BTP For Working Professionals", link: "/courses/sap-btp-professionals-course-training" },
-                        { title: "SAP BTP For Freshers", link: "/courses/sap-btp-freshers-course-training" },
-                        { title: "SAP CPI Training", link: "/courses/sap-cpi-course-training" },
-                        { title: "SAP QM", link: "/courses/sap-qm-course-training" },
-                        { title: "SAP BASIS S/4HANA", link: "/courses/sap-basis-course-training" },
-                      ]
-                    },
-                    {
-                      name: "Python",
-                      link: "/courses/python",
-                      items: courseCategories.find((c) => c.category === "Python")?.items || []
-                    },
-                    {
-                      name: "AI",
-                      link: "/courses/ai",
-                      items: courseCategories.find((c) => c.category === "AI")?.items || []
-                    },
-                    {
-                      name: "AIML",
-                      link: "/courses/aiml",
-                      items: courseCategories.find((c) => c.category === "AIML")?.items || []
-                    },
-                    /* Commented out per request - Data Analytics / Digital Marketing nav categories
-                    {
-                      name: "Data Analytics",
-                      link: "/courses/data-analytics",
-                      items: courseCategories.find((c) => c.category === "Data Analytics")?.items || []
-                    },
-                    {
-                      name: "Digital Marketing",
-                      link: "/courses/digital-marketing",
-                      items: courseCategories.find((c) => c.category === "Digital Marketing")?.items || []
-                    }
-                    */
-                  ].map((category) => (
-                    <li key={category.name} className="relative group/category px-4 py-2 hover:bg-gray-100 flex justify-between items-center cursor-pointer">
-                      <Link to={category.link} className="w-full text-left font-medium text-gray-800">
-                        {category.name}
-                      </Link>
-                      {category.items.length > 0 && <ChevronRight className="w-4 h-4 text-gray-400" />}
+                <div className="absolute top-[calc(100%+0.5rem)] left-0 w-64 bg-white shadow-xl rounded-md opacity-0 invisible group-hover/menu:opacity-100 group-hover/menu:visible transition-opacity duration-300 z-[60] py-2 border border-gray-100">
+                  <ul className="flex flex-col">
+                    {[
+                      {
+                        name: "SAP",
+                        link: "/courses/sap-courses",
+                        items: [
+                          { title: "SAP ABAP on HANA", link: "/courses/sap-abap-course-training" },
+                          { title: "SAP ABAP on HANA (CDS & OData)", link: "/courses/sap-abap-cds-course-training" },
+                          { title: "SAP Fiori & UI5", link: "/courses/sap-fiori-course-training" },
+                          { title: "SAP SD", link: "/courses/sap-sd-course-training" },
+                          { title: "SAP MM", link: "/courses/sap-mm-course-training" },
+                          { title: "SAP FICO", link: "/courses/sap-fico-course-training" },
+                          { title: "SAP PP", link: "/courses/sap-pp-course-training" },
+                          { title: "SAP BTP For Working Professionals", link: "/courses/sap-btp-professionals-course-training" },
+                          { title: "SAP BTP For Freshers", link: "/courses/sap-btp-freshers-course-training" },
+                          { title: "SAP CPI Training", link: "/courses/sap-cpi-course-training" },
+                          { title: "SAP QM", link: "/courses/sap-qm-course-training" },
+                          { title: "SAP BASIS S/4HANA", link: "/courses/sap-basis-course-training" },
+                        ]
+                      },
+                      {
+                        name: "Python",
+                        link: "/courses/python",
+                        items: courseCategories.find((c) => c.category === "Python")?.items || []
+                      },
+                      {
+                        name: "AI",
+                        link: "/courses/ai",
+                        items: courseCategories.find((c) => c.category === "AI")?.items || []
+                      },
+                      {
+                        name: "AIML",
+                        link: "/courses/aiml",
+                        items: courseCategories.find((c) => c.category === "AIML")?.items || []
+                      },
+                      /* Commented out per request - Data Analytics / Digital Marketing nav categories
+                      {
+                        name: "Data Analytics",
+                        link: "/courses/data-analytics",
+                        items: courseCategories.find((c) => c.category === "Data Analytics")?.items || []
+                      },
+                      {
+                        name: "Digital Marketing",
+                        link: "/courses/digital-marketing",
+                        items: courseCategories.find((c) => c.category === "Digital Marketing")?.items || []
+                      }
+                      */
+                    ].map((category) => (
+                      <li key={category.name} className="relative group/category px-4 py-2 hover:bg-gray-100 flex justify-between items-center cursor-pointer">
+                        <Link to={category.link} className="w-full text-left font-medium text-gray-800">
+                          {category.name}
+                        </Link>
+                        {category.items.length > 0 && <ChevronRight className="w-4 h-4 text-gray-400" />}
 
-                      {/* Nested Dropdown */}
-                      {category.items.length > 0 && (
-                        <div className="absolute left-full top-0 ml-0 w-[600px] bg-[#fdfdfd] shadow-2xl rounded-md opacity-0 invisible group-hover/category:opacity-100 group-hover/category:visible transition-opacity duration-300 z-[70] p-6 border border-gray-100">
-                          <ul className="grid grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-6">
-                            {category.items.map((item, idx) => (
-                              <li key={idx}>
-                                <Link to={item.link} className="block text-sm text-gray-700 hover:text-[#000080] font-medium transition-colors">
-                                  {item.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-                            <Link to={category.link} className="text-[#000080] font-semibold text-sm hover:underline underline-offset-4">
-                              View All {category.name} Courses
-                            </Link>
+                        {/* Nested Dropdown */}
+                        {category.items.length > 0 && (
+                          <div className="absolute left-full top-0 ml-0 w-[600px] bg-[#fdfdfd] shadow-2xl rounded-md opacity-0 invisible group-hover/category:opacity-100 group-hover/category:visible transition-opacity duration-300 z-[70] p-6 border border-gray-100">
+                            <ul className="grid grid-cols-2 md:grid-cols-3 gap-y-5 gap-x-6">
+                              {category.items.map((item, idx) => (
+                                <li key={idx}>
+                                  <Link to={item.link} className="block text-sm text-gray-700 hover:text-[#000080] font-medium transition-colors">
+                                    {item.title}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                            <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+                              <Link to={category.link} className="text-[#000080] font-semibold text-sm hover:underline underline-offset-4">
+                                View All {category.name} Courses
+                              </Link>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </div>
 
@@ -481,9 +481,9 @@ export const Navbar = () => {
             >
               <Link to="/about-us">About Us</Link>
             </Button>
-            <Button asChild className="bg-[#000080] hover:bg-[#000080]/90 text-white font-medium px-2 xl:px-6">
+            {/* <Button asChild className="bg-[#000080] hover:bg-[#000080]/90 text-white font-medium px-2 xl:px-6">
               <Link to="/blogs">Blogs</Link>
-            </Button>
+            </Button> */}
 
             <Button
               asChild

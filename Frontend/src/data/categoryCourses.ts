@@ -232,7 +232,7 @@ export const coursesData: CourseData[] = [
         title: "SAP BTP For Freshers",
         description: "Foundational SAP BTP training designed specifically for freshers.",
         categoryId: "sap-btp",
-        image: "/sap/sap-btp-freshers-course-training.jpg",
+        image: "/sap/sap-btp-freshers.jpg",
         rating: 5,
         price: "₹30,000"
     },
